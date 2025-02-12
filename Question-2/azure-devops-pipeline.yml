@@ -1,0 +1,34 @@
+trigger:
+  - main  # Run the pipeline on changes to 'main'
+
+pool:
+  vmImage: 'ubuntu-latest'  # Use Ubuntu agent
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '18.x'  # Use Node.js 18
+
+- script: npm install
+  displayName: 'Install Dependencies'
+
+- script: npm run build
+  displayName: 'Build Project'
+
+- script: npm test -- --coverage
+  displayName: 'Run Unit Tests'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'JUnit'
+    testResultsFiles: '**/junit.xml'
+  condition: succeededOrFailed()
+
+- script: npm run package
+  displayName: 'Package Application'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: 'dist/'
+    artifactName: 'node-drop'
+  displayName: 'Publish Artifacts'
