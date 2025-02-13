@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    environment {
+        AZURE_CREDENTIALS_ID = 'azure-sp-credentials'  
+        KEYVAULT_NAME = 'test-keyvault'                 
+        SECRET_NAME = 'db-password'                   
+    }
+
+    stages {
+        stage('Retrieve Secrets') {
+            steps {
+                script {
+                    withAzureKeyvault(
+                        credentialsId: env.AZURE_CREDENTIALS_ID,
+                        keyVaultName: env.KEYVAULT_NAME
+                    ) {
+                        env.DB_PASSWORD = keyVaultSecret(env.SECRET_NAME)
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                script {
+                    sh """
+                    kubectl apply -f k8s/dev/deployment.yaml \
+                    --set env.DB_PASSWORD=${env.DB_PASSWORD}
+                    """
+                }
+            }
+        }
+    }
+}
