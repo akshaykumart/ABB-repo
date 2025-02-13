@@ -1,1 +1,1 @@
-## Write a Terraform script to provision an AKS cluster .
+## Terraform script to provision an AKS cluster .
