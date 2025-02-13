@@ -45,11 +45,11 @@ resource "azurerm_kubernetes_cluster" "ABB-aks" {
 
 # Outputs
 output "aks_cluster_name" {
-  value = azurerm_kubernetes_cluster.aks.name
+  value = azurerm_kubernetes_cluster.ABB-aks.name
 }
 
 output "kube_config" {
-  value     = azurerm_kubernetes_cluster.aks.kube_config_raw
+  value     = azurerm_kubernetes_cluster.ABB-aks.kube_config_raw
   sensitive = true
 }
 
