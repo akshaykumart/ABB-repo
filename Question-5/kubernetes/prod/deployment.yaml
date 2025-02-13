@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-prod
+  namespace: prod
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+      - name: myapp
+        image: akshaykumart/myapp:latest
+        ports:
+        - containerPort: 3000
+        resources:
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
