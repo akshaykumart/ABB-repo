@@ -20,5 +20,9 @@ Steps to Retrieve Secrets from Azure Key Vault in Jenkins
    Scope: Global
    Client ID, Client Secret, Tenant ID, and Subscription ID from step 2.
 
-4. 
+4. Use the secret to azure key vault
+
+   ``` $ az keyvault secret set --vault-name test-keyvault --name db-password --value "**********" ```
+
+5. Then retrieve the secret into Jenkins as shown in Jenkinsfile.
 
