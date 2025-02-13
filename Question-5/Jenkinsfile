@@ -47,7 +47,7 @@ pipeline {
         stage('Deploy to Dev') {
             steps {
                 sh """
-                kubectl --kubeconfig=$KUBE_CONFIG apply -f k8s/dev/deployment.yaml
+                kubectl --kubeconfig=$KUBE_CONFIG apply -f kubernetess/dev/deployment.yaml
                 """
             }
         }
@@ -58,44 +58,27 @@ pipeline {
             }
         }
 
-        stage('Deploy to Test') {
+        stage('Deploy to Staging') {
             when {
                 expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
             }
             steps {
                 sh """
-                kubectl --kubeconfig=$KUBE_CONFIG apply -f k8s/test/deployment.yaml
+                kubectl --kubeconfig=$KUBE_CONFIG apply -f kubernetess/test/deployment.yaml
                 """
             }
         }
 
-        stage('Integration Test - Test') {
+        stage('Integration Test - Staging') {
             steps {
                 sh "curl -f http://test.myapp.com/health || exit 1"
-            }
-        }
-
-        stage('Approval for Prod') {
-            when {
-                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
-            }
-            steps {
-                script {
-                    def userInput = input(
-                        message: 'Deploy to Prod?',
-                        parameters: [choice(name: 'Approval', choices: ['Yes', 'No'], description: 'Approve Deployment?')]
-                    )
-                    if (userInput == 'No') {
-                        error("Deployment to Prod was rejected")
-                    }
-                }
             }
         }
 
         stage('Deploy to Prod') {
             steps {
                 sh """
-                kubectl --kubeconfig=$KUBE_CONFIG apply -f k8s/prod/deployment.yaml
+                kubectl --kubeconfig=$KUBE_CONFIG apply -f kubernetess/prod/deployment.yaml
                 """
             }
         }
