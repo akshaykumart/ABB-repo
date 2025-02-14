@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: myacr.azurecr.io/myapp
+  repository: akshaykumart/my-app:latest
   tag: latest
   pullPolicy: Always
 
