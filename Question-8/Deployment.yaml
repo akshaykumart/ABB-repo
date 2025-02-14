@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: myacr.azurecr.io/myapp:v1  
+        image: akshaykumart/my-app:latest
         ports:
         - containerPort: 3000
         livenessProbe:
