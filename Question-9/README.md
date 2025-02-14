@@ -17,12 +17,20 @@ Steps:
 
    ``` $ helm package abb-app ```
 
-   ``` $ helm install abb-app . -f values.yaml ```
+   ``` $ helm install abb-app . -f values.yaml -n abb```
 
    ``` $ helm list -A ```
 
 5. Verify
 
-   ``` $ kubectl get deployments ```
+   ``` $ kubectl get deployments -n abb```
 
-   ``` $ kubectl get services ```
+   ``` $ kubectl get services -n abb```
+
+-------------------------------------------------------------------------------------------
+
+![image](https://github.com/user-attachments/assets/01e301d8-c935-4991-ab08-2adf06e998e7)
+
+![image](https://github.com/user-attachments/assets/fd295f31-5da5-4799-a557-03ef275b8172)
+
+![image](https://github.com/user-attachments/assets/b80490ca-e503-465f-a155-c1cf1510d1f2)
