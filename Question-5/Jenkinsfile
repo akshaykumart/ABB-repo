@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         REPO_URL = 'http://github.com/akshaykumart'
-        DOCKER_IMAGE = "akshaykumart/myapp:${BUILD_NUMBER}"
+        DOCKER_IMAGE = "myapp"
         KUBE_CONFIG = credentials('kubeconfig')
     }
 
