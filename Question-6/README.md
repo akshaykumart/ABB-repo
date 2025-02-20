@@ -9,7 +9,7 @@ Steps to Retrieve Secrets from Azure Key Vault in Jenkins
 
 2. Create an Azure Service Principal and grant access to azure keyvault
 
-   ``` $ az ad sp create-for-rbac --name "jenkins-sp" --sdk-auth ```
+   ``` $ az ad sp create-for-rbac --name "jenkins-sp" --role Reader --scopes /subscriptions/{subscription-id}/resourceGroups/{resource-group-name} ```
 
    ``` $ az keyvault set-policy --name test-keyvault --spn <client_id> --secret-permissions get list```
 
