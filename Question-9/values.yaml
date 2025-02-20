@@ -1,7 +1,7 @@
 replicaCount: 2
 
 image:
-  repository: akshaykumart/my-app:latest
+  repository: akshaykumart/my-app
   tag: latest
   pullPolicy: Always
 
